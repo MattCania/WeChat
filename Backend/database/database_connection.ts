@@ -11,7 +11,7 @@ const sequelize = new Sequelize({
 	port: Number(process.env.DB_PORT),
 })
 
-const sequelize_authenticate = async () => {
+export const sequelizeAuthenticate = async () => {
 	try {
 		await sequelize.authenticate()
 		console.log('Sequelize Connection and Authentication Succesful')
@@ -19,7 +19,5 @@ const sequelize_authenticate = async () => {
 		console.log('Error Sequelize Connection and Authentication', error)
 	}
 } 
-
-sequelize_authenticate()
 
 export default sequelize
