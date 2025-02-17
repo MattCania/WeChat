@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 
-import { databaseSyncronize } from "../database/database_connection.js";
+import { databaseSyncronize } from "../database/models/index.js";
 
 const app = express();
 app.use(express.json());
@@ -17,10 +17,9 @@ app.get("/", (req, res) => {
 // });
 
 // Database Syncronizer and Connection Test
-// (async () => {
-// 	await sequelizeAuthenticate();
-// 	await databaseSyncronize();
-// })();
+(async () => {
+	await databaseSyncronize();
+})();
 
 app.listen(process.env.PORT, () =>
   console.log("Successful Port Connection", process.env.PORT)

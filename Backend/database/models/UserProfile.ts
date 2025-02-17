@@ -1,7 +1,12 @@
-import { DataType, DataTypes, Model } from "sequelize";
-import db from '../database_connection'
+import { DataTypes, Model, Sequelize } from "sequelize";
 
-class UserProfile extends Model {}
+export default (sequelize: Sequelize) => {
+class UserProfile extends Model {
+	static associate(models: any) {
+		UserProfile.belongsTo(models.UserAccounts, { foreignKey: 'AccountId' });
+	}
+
+}
 
 UserProfile.init(
 	{
@@ -30,10 +35,10 @@ UserProfile.init(
 	}
 	},
 	{
-		sequelize: db,
+		sequelize,
 		tableName: 'UserProfile',
 		timestamps: true
 	}
 )
-
-export default UserProfile
+return UserProfile;
+}
