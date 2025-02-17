@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize"
-import db from '../database_connection.js'
+import db from '../database_connection'
 
 class UserAccounts extends Model {}
 
@@ -17,12 +17,13 @@ UserAccounts.init(
 		EncryptedPassword: {
 			type: DataTypes.STRING,
 			allowNull: false
-		}
-		
+		},
 	},
 	{
 		sequelize: db,
-		tableName: 'UserAccounts'
+		tableName: 'UserAccounts',
+		timestamps: true
+
 	}
 )
 
