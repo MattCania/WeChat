@@ -1,8 +1,7 @@
 import "dotenv/config";
 import express from "express";
 
-import { sequelizeAuthenticate } from "../database/database_connection.js";
-import { databaseSyncronize } from "../database/models/index.js";
+import { databaseSyncronize } from "../database/database_connection.js";
 
 const app = express();
 app.use(express.json());
