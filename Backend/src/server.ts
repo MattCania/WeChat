@@ -1,13 +1,23 @@
 import "dotenv/config";
 import express from "express";
+import { UserAccounts } from "../database/models/index.js";
 
 import { databaseSyncronize } from "../database/models/index.js";
 
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Server is running!");
+app.get("/", async (req, res) => {
+  try {
+    const results = await UserAccounts.findAll();
+    if (results.length === 0) {
+      res.send("Empty Table")
+    }
+    else res.json(results);
+  } catch (error) {
+    console.log(error)
+  }
+
 });
 
 // Error Handler

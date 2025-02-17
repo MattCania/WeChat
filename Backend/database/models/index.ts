@@ -5,8 +5,6 @@ import UserProfileModel from "./UserProfile.js";
 const UserAccounts = UserAccountsModel(sequelize);
 const UserProfile = UserProfileModel(sequelize);
 
-const models = { UserAccounts, UserProfile }
-
 export async function databaseSyncronize() {
 	try {
 		if (process.env.NODE_ENV === 'development') await databaseInitialize()
@@ -20,4 +18,4 @@ export async function databaseSyncronize() {
 	}
 }
 
-export default models;
+export { sequelize, UserAccounts, UserProfile };
