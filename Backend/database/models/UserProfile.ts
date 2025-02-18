@@ -3,34 +3,34 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 export default (sequelize: Sequelize) => {
 class UserProfile extends Model {
 	static associate(models: any) {
-		UserProfile.belongsTo(models.UserAccounts, { foreignKey: 'AccountId' });
+		UserProfile.belongsTo(models.UserAccounts, { foreignKey: 'accountId' });
 	}
 
 }
 
 UserProfile.init(
 	{
-	ProfileId: {
+	profileId: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		autoIncrement: true
 	},
-	FirstName:{
+	firstName:{
 		type: DataTypes.STRING
 	},
-	MiddleName:{
+	middleName:{
 		type: DataTypes.STRING
 	},
-	LastName:{
+	lastName:{
 		type: DataTypes.STRING
 	},
-	Birthday: {
+	birthday: {
 		type: DataTypes.DATE
 	},
-	Address: {
+	address: {
 		type: DataTypes.STRING
 	},
-	PlaceOfBirth: {
+	placeOfBirth: {
 		type: DataTypes.STRING
 	}
 	},
