@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { UserAccounts, UserProfile } from '../database/models'
+import { UserAccounts, UserProfile } from '../database/models/index.js'
 
 async function Registration(req, res) {
 		const {

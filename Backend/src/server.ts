@@ -31,16 +31,18 @@ app.get("/", async (req, res) => {
 
 });
 
+
 // Error Handler
 // app.use((err: any, req: any, res: any, next: any) => {
 //   console.error(err.stack);
 //   res.status(500).send("Something went wrong!");
 // });
 
-// Database Syncronizer and Connection Test
-(async () => {
-	await databaseSyncronize();
-})();
+
+// Database Syncronizer
+// (async () => {
+// 	await databaseSyncronize();
+// })();
 
 app.listen(process.env.PORT, () =>
   console.log("Successful Port Connection", process.env.PORT)
