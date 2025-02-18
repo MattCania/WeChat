@@ -77,4 +77,4 @@ async function Login(req, res) {
 
 }
 
-export { Registration }
+export { Registration, Login }
