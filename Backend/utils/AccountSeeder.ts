@@ -19,20 +19,21 @@ async function AccountSeeder(req, res) {
 
 		const hashedPassword = await bcrypt.hash(password, 10)
 
+
 		const accountResults = await UserAccounts.create({
-			email,
-			hashedPassword
+			email: email,
+			encryptedPassword: hashedPassword
 		})
 
 		if (!accountResults) throw new Error('Account Creation Error')
 
 		const profileResults = await UserProfile.create({
-			firstName,
-			middleName,
-			lastName,
-			birthday,
-			address,
-			placeOfBirth
+			firstName: firstName,
+			middleName: middleName,
+			lastName: lastName,
+			birthday: birthday,
+			address: address,
+			placeOfBirth: placeOfBirth
 		})
 
 		if (!profileResults) throw new Error('Profile Creation Error')
@@ -40,7 +41,7 @@ async function AccountSeeder(req, res) {
 		return res.status(200).json({message: 'Successful Account Creation'})
 
 	} catch (error) {
-		return res.status(400).json({message: 'Account Creation Error', error: error})
+		return res.status(400).json({message: 'Account Creation Error', error: error.message})
 	}
 
 }
@@ -64,9 +65,9 @@ async function AccountReset(req, res) {
 		res.status(200).json({message: "Successful Reset of Databases"})
 
 	} catch (error) {
-		return res.status(400).json({message: 'Database Reset Error', error: error})
+		return res.status(400).json({message: 'Database Reset Error', error: error.message})
 	}
 
 }
 
-export default router
+export { AccountReset, AccountSeeder }

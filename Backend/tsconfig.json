@@ -8,9 +8,9 @@
 	  "allowJs": true,
 	  "esModuleInterop": true,
 	  "resolveJsonModule": true,
-	  "skipLibCheck": true
+	  "skipLibCheck": true,
 	},
-	"include": ["src/**/*"],
+	"include": ["src/**/*.ts"],
 	"ts-node": {
 	  "esm": true
 	}

@@ -42,7 +42,7 @@ async function Registration(req, res) {
 		return res.status(200).json({message: 'Successful Account Creation'})
 
 	} catch (error) {
-		return res.status(400).json({message: 'Account Creation Error', error: error})
+		return res.status(400).json({message: 'Account Creation Error', error: error.message})
 	}
 
 }
@@ -56,7 +56,7 @@ async function Login(req, res) {
 
 	try {
 		
-		const account : any = await UserAccounts.findAll({
+		const account : any = await UserAccounts.findOne({
 			where: {
 				email: email
 			}
@@ -64,14 +64,13 @@ async function Login(req, res) {
 
 		if (account.length === 0) throw new Error('Email Does Not Exist!')
 
-		const accountPassword = account.password
-		const isMatch = await bcrypt.compare(password, accountPassword)
+		const isMatch = await bcrypt.compare(password, account.encryptedPassword)
 		if (!isMatch) throw new Error('Password Does Not Match User Email')
 		
 		return res.status(200).json({message: 'Successful Login'})
 
 	} catch (error) {
-		return res.status(400).json({message: 'User Login Error', error: error})
+		return res.status(400).json({message: 'User Login Error', error: error.message})
 	}
 	
 

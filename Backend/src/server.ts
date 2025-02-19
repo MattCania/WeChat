@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import compression from 'compression'
+import cors from 'cors'
 import helmet from 'helmet'
 import hpp from 'hpp'
 import { UserAccounts } from "../database/models/index.js";
@@ -8,6 +9,7 @@ import { UserAccounts } from "../database/models/index.js";
 import { databaseSyncronize } from "../database/models/index.js";
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
@@ -31,19 +33,20 @@ app.get("/", async (req, res) => {
 
 });
 
+// Routes
+import AccountRoute from '../routes/AccountRoutes.js'
+
+app.use('/api', AccountRoute)
 
 // Error Handler
-// app.use((err: any, req: any, res: any, next: any) => {
-//   console.error(err.stack);
-//   res.status(500).send("Something went wrong!");
-// });
-
-
-// Database Syncronizer
-// (async () => {
-// 	await databaseSyncronize();
-// })();
-
-app.listen(process.env.PORT, () =>
-  console.log("Successful Port Connection", process.env.PORT)
-);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Something went wrong!", error: err.message });
+});
+// Database Syncronizer and Port Setup
+(async () => {
+	await databaseSyncronize();
+  app.listen(process.env.PORT, () =>
+    console.log("Successful Port Connection", process.env.PORT)
+  );
+})();
