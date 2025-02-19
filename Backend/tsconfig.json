@@ -6,13 +6,12 @@
 	  "sourceMap": true,
 	  "outDir": "dist",
 	  "allowJs": true,
+	  "allowSyntheticDefaultImports": true,
 	  "esModuleInterop": true,
 	  "resolveJsonModule": true,
 	  "skipLibCheck": true,
+	//   "strict": true
 	},
 	"include": ["src/**/*.ts"],
-	"ts-node": {
-	  "esm": true
-	}
   }
   

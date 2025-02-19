@@ -27,6 +27,7 @@ app.get("/", async (req, res) => {
       res.send("Empty Table")
     }
     else res.json(results);
+    console.log('Get Successful')
   } catch (error) {
     console.log(error)
   }

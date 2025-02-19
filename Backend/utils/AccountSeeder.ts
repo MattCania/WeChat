@@ -51,16 +51,20 @@ async function AccountReset(req, res) {
 	try {
 		
 		const accountResults = await UserAccounts.destroy({
-			where: {}
+			where: {
+				email: "matthew@gmail.com"
+			}
 		})
 
 		if (!accountResults) throw new Error('Error Resetting Accounts')
 
-		const profileResults = await UserAccounts.destroy({
-			where: {}
+		const profileResults = await UserProfile.destroy({
+			where: {
+				firstName: "Matthew"
+			}
 		})
 
-		if (!profileResults) throw new Error('Error Resetting Accounts')
+		if (!profileResults) throw new Error('Error Resetting Profile')
 
 		res.status(200).json({message: "Successful Reset of Databases"})
 

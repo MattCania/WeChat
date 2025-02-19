@@ -1,10 +1,7 @@
 {
-	"watch": ["src, controllers, utils, database, routes"],
+	"watch": ["src", "controllers", "utils", "database", "routes"],
 	"ext": ".ts,.js",
 	"exec": "tsx src/server.ts",
-	"execMap": {
-    "ts": "tsc"
-  	},
 	"ignore": []
   }
   
