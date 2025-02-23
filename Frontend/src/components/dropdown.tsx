@@ -1,47 +1,67 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 interface DropdownProps {
-  items: { label: string; content: string[] }[];
+  label: string;
+  content: string[];
 }
 
-export default function Dropdown({ items }: DropdownProps) {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+export default function Dropdown({ label, content }: DropdownProps) {
+  const [activeDropdown, setDropdown] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdown = (index: number) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+  const toggleDropdown = () => {
+    setDropdown((prev) => !prev);
   };
 
-  return (
-    <div className='flex gap-4'>
-      {items.map((item, index) => (
-        <div
-          key={index}
-          className='relative'
-        >
-          <button
-            className='flex justify-center items-center h-8 w-32 gap-2 p-2 rounded-md text-white bg-cyan-800'
-            onClick={() => toggleDropdown(index)}
-          >
-            {item.label} <FontAwesomeIcon icon={ activeIndex && activeIndex === index ? faCaretUp : faCaretDown} />
-          </button>
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdown(false);
+      }
+    };
 
-          {activeIndex === index && (
-            <div className='absolute top-full w-full flex flex-col bg-white border border-cyan-600 rounded-sm shadow-md'>
-              {item.content.map((subItem, subIndex) => (
-                <a
-                  key={subIndex}
-                  href='#'
-                  className='p-2 hover:bg-gray-200 rounded-sm'
-                >
-                  {subItem}
-                </a>
-              ))}
-            </div>
-          )}
+    if (activeDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeDropdown]);
+
+  return (
+    <div 
+      className='flex gap-4'
+    >
+      <div 
+        className='relative'
+        ref={dropdownRef}
+      >
+
+        <button 
+          className='flex justify-center items-center h-8 w-32 gap-2 p-2 rounded-md text-white bg-cyan-800'
+          onClick={toggleDropdown}
+        >
+          {label}{" "}
+          <FontAwesomeIcon icon={activeDropdown ? faCaretUp : faCaretDown} />
+        </button>
+
+        <div 
+          className={`${activeDropdown ? 'flex' : 'hidden'} absolute top-full w-full flex flex-col bg-white border border-cyan-600 rounded-sm shadow-md`}
+        >
+          {content.map((menu, index) => (
+            <a
+              href='#'
+              key={index}
+              className='p-2 hover:bg-gray-200 rounded-sm'
+            >
+              {menu}
+            </a>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 }
