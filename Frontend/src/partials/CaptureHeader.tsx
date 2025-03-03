@@ -24,7 +24,7 @@ export default function CaptureHeader() {
           className='flex justify-start items-center w-1/3 h-full p-2 rounded-md gap-4'
         >
         <a
-          className='flex justify-center items-center w-32 h-8 p-2 rounded-md text-cyan-800 text-xl font-bold'
+          className='flex justify-center items-center w-32 h-8 p-2 rounded-md text-cyan-50 text-xl font-bold'
           href=''
         >
           WeChat

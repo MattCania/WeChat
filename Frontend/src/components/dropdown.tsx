@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { Link, NavLink } from "react-router-dom";
 
 interface DropdownProps {
   label: string;
@@ -52,13 +53,13 @@ export default function Dropdown({ label, content }: DropdownProps) {
           className={`${activeDropdown ? 'flex' : 'hidden'} absolute top-full w-full flex flex-col bg-white border border-cyan-600 rounded-sm shadow-md`}
         >
           {content.map((menu, index) => (
-            <a
-              href='#'
+            <NavLink
+              to='#'
               key={index}
               className='p-2 hover:bg-gray-200 rounded-sm'
             >
               {menu}
-            </a>
+            </NavLink>
           ))}
         </div>
       </div>
